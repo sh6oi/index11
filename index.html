@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة طلب جديد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #222;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 35px 25px 30px 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.09);
+        }
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            color: #1e78f8;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 17px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #394b63;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: right;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1.5px solid #e3e9f5;
+            background: #f9fbfd;
+            font-size: 15.5px;
+            transition: border 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border: 1.5px solid #1e78f8;
+            outline: none;
+            background: #fff;
+        }
+        .products-group {
+            margin-bottom: 16px;
+        }
+        .product-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .product-row input[type="text"] {
+            flex: 2 1 60%;
+            min-width: 140px;
+        }
+        .product-row input[type="number"] {
+            flex: 1 1 30%;
+            min-width: 60px;
+        }
+        .add-product-btn {
+            background: linear-gradient(90deg, #1e78f8 60%, #4ec4ec 100%);
+            color: #fff;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .add-product-btn:hover {
+            background: linear-gradient(90deg, #1671d8 0%, #1e78f8 100%);
+            box-shadow: 0 2px 8px rgba(30, 120, 248, 0.10);
+        }
+        .form-group button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: linear-gradient(90deg, #33b96a 70%, #7cdba2 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .form-group button[type="submit"]:hover {
+            background: linear-gradient(90deg, #28a45a 30%, #33b96a 100%);
+            box-shadow: 0 2px 8px rgba(51,185,106,0.10);
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 7px;
+            font-size: 16px;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(51,185,106,0.08);
+        }
+        .notification.error {
+            background-color: #f44336;
+        }
+        .notification.show {
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 13px 4px;
+            }
+            .product-row input[type="text"], .product-row input[type="number"] {
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>إضافة طلب جديد</h1>
+        <form id="addRequestForm" autocomplete="off">
+            <div class="form-group">
+                <label for="orderNumber">رقم الشحنة</label>
+                <input type="text" id="orderNumber" name="orderNumber" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="customerUsername">يوزر الزبون</label>
+                <input type="text" id="customerUsername" name="customerUsername" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="cartLink">رابط العربة</label>
+                <input type="text" id="cartLink" name="cartLink" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="province">المحافظة</label>
+                <select id="province" name="province" required>
+                    <option value="Baghdad">بغداد</option>
+                    <option value="Basra">البصرة</option>
+                    <option value="Nineveh">نينوى</option>
+                    <option value="Karbala">كربلاء</option>
+                    <option value="Najaf">النجف</option>
+                    <option value="Dhi Qar">ذي قار</option>
+                    <option value="Erbil">أربيل</option>
+                    <option value="Sulaymaniyah">السليمانية</option>
+                    <option value="Dohuk">دهوك</option>
+                    <option value="Salah ad-Din">صلاح الدين</option>
+                    <option value="Anbar">الأنبار</option>
+                    <option value="Al-Muthanna">المثنى</option>
+                    <option value="Qadisiyyah">القادسية</option>
+                    <option value="Babil">بابيل</option>
+                    <option value="Wasit">واسط</option>
+                    <option value="Maysan">ميسان</option>
+                    <option value="Kirkuk">كركوك</option>
+                    <option value="Diyala">ديالى</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">العنوان</label>
+                <input type="text" id="address" name="address" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="phone1">رقم الهاتف الأول</label>
+                <input type="tel" id="phone1" name="phone1" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="phone2">رقم الهاتف الثاني</label>
+                <input type="tel" id="phone2" name="phone2" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="totalPrice">السعر الكلي</label>
+                <input type="number" id="totalPrice" name="totalPrice" required>
+            </div>
+            <div class="form-group products-group" id="productsGroup">
+                <label>المنتجات المكررة</label>
+                <div class="product-row">
+                    <input type="text" class="product-link" name="productLink[]" placeholder="رابط المنتج" autocomplete="off">
+                    <input type="number" class="product-count" name="productCount[]" placeholder="العدد">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit">إضافة الطلب</button>
+            </div>
+        </form>
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+      import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBI6VNgwCKdG2X52wC2b20t7or8p4rjFB8",
+        authDomain: "vndr11.firebaseapp.com",
+        projectId: "vndr11",
+        storageBucket: "vndr11.appspot.com",
+        messagingSenderId: "411092840558",
+        appId: "1:411092840558:web:5d38f8a50d5eaada2a767f",
+        measurementId: "G-77M15Z0H07"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Dynamic product fields logic
+      const productsGroup = document.getElementById('productsGroup');
+
+      function addProductRowIfNeeded() {
+        const rows = Array.from(productsGroup.querySelectorAll('.product-row'));
+        const lastRow = rows[rows.length - 1];
+        const linkInput = lastRow.querySelector('.product-link');
+        const countInput = lastRow.querySelector('.product-count');
+
+        // Detect if last row is filled
+        if (linkInput.value.trim() !== '' && countInput.value.trim() !== '') {
+          // Only add new row if the last one is filled and no empty row after
+          // (prevents spamming new rows)
+          if (!productsGroup.querySelector('.product-row.new-row')) {
+            const newRow = document.createElement('div');
+            newRow.className = 'product-row new-row';
+            newRow.innerHTML = `
+              <input type="text" class="product-link" name="productLink[]" placeholder="رابط المنتج" autocomplete="off">
+              <input type="number" class="product-count" name="productCount[]" placeholder="العدد">
+            `;
+            productsGroup.appendChild(newRow);
+
+            // Remove the "new-row" class after creation, to track only the latest new row
+            setTimeout(() => newRow.classList.remove('new-row'), 200);
+            
+            // Add event listeners to new inputs
+            newRow.querySelectorAll('input').forEach(input => {
+              input.addEventListener('input', addProductRowIfNeeded);
+            });
+          }
+        }
+      }
+
+      // Initial event listeners
+      productsGroup.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', addProductRowIfNeeded);
+      });
+
+      document.getElementById('addRequestForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const orderNumber = form.orderNumber.value;
+        const customerUsername = form.customerUsername.value;
+        const cartLink = form.cartLink.value;
+        const province = form.province.value;
+        const address = form.address.value;
+        const phone1 = form.phone1.value;
+        const phone2 = form.phone2.value;
+        const totalPrice = form.totalPrice.value;
+
+        // Collect product links/counts, filter out empty
+        const productLinks = Array.from(form.querySelectorAll('.product-link')).map(i => i.value.trim());
+        const productCounts = Array.from(form.querySelectorAll('.product-count')).map(i => i.value.trim());
+
+        const products = [];
+        for (let i = 0; i < productLinks.length; i++) {
+          if (productLinks[i] && productCounts[i]) {
+            products.push({ link: productLinks[i], count: Number(productCounts[i]) });
+          }
+        }
+
+        // Prepare data for Firestore
+        const orderData = {
+          orderNumber,
+          customerUsername,
+          cartLink,
+          province,
+          address,
+          phone1,
+          phone2,
+          totalPrice,
+        };
+        // Save up to 7 products (or more if you want)
+        products.forEach((p, i) => {
+          orderData[`productLink${i+1}`] = p.link;
+          orderData[`productCount${i+1}`] = p.count;
+        });
+
+        try {
+          await addDoc(collection(db, "orders"), orderData);
+
+          // Show success notification
+          const notification = document.getElementById('notification');
+          notification.textContent = 'تم إضافة الطلب بنجاح';
+          notification.classList.add('show');
+          notification.classList.remove('error');
+
+          // Hide notification after 2.5 seconds and reload the page
+          setTimeout(() => {
+            notification.classList.remove('show');
+            window.location.href = 'manage-orders.html';
+          }, 2500);
+        } catch (error) {
+          // Show error notification
+          const notification = document.getElementById('notification');
+          notification.textContent = 'حدث خطأ أثناء إضافة الطلب';
+          notification.classList.add('error', 'show');
+          setTimeout(() => {
+            notification.classList.remove('show');
+          }, 3000);
+        }
+      });
+    </script>
+</body>
+</html>
