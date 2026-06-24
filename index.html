@@ -3,331 +3,723 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة طلب جديد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>✨ إضافة طلب جديد ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Cairo', Arial, sans-serif;
-            background: linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%);
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
             min-height: 100vh;
-            color: #222;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* 🎈 Floating playful background elements */
+        body::before,
+        body::after {
+            content: '🌸';
+            position: fixed;
+            font-size: 60px;
+            opacity: 0.15;
+            animation: floatAround 18s infinite alternate ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::before {
+            top: 5%;
+            left: 3%;
+            animation-duration: 22s;
+            content: '🌈';
+        }
+        body::after {
+            bottom: 5%;
+            right: 3%;
+            animation-duration: 20s;
+            content: '🦄';
+        }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(30px, -20px) rotate(10deg) scale(1.1);
+            }
+            50% {
+                transform: translate(-10px, 30px) rotate(-5deg) scale(0.9);
+            }
+            75% {
+                transform: translate(20px, 10px) rotate(15deg) scale(1.05);
+            }
+            100% {
+                transform: translate(-20px, -10px) rotate(-8deg) scale(1);
+            }
+        }
+
+        /* 🎨 Main container – playful & bubbly */
         .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 35px 25px 30px 25px;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.09);
+            max-width: 640px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 40px 30px 35px;
+            border-radius: 48px 48px 48px 48px;
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.15),
+                0 10px 30px rgba(255, 159, 67, 0.10),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
         }
+
+        .container:hover {
+            transform: translateY(-3px);
+        }
+
+        /* 🎀 Decorative corner accents */
+        .container::before {
+            content: '⭐';
+            position: absolute;
+            top: -18px;
+            right: -10px;
+            font-size: 44px;
+            transform: rotate(15deg);
+            filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.3));
+        }
+        .container::after {
+            content: '🎉';
+            position: absolute;
+            bottom: -18px;
+            left: -10px;
+            font-size: 44px;
+            transform: rotate(-10deg);
+            filter: drop-shadow(0 4px 8px rgba(255, 107, 107, 0.3));
+        }
+
+        /* 🏷️ Header */
         h1 {
             text-align: center;
-            font-weight: 700;
-            color: #1e78f8;
-            margin-bottom: 28px;
-            letter-spacing: 1px;
+            font-weight: 900;
+            font-size: 32px;
+            color: #2d1b69;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
+
+        h1 .emoji-deco {
+            font-size: 36px;
+            animation: wiggle 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotate(-5deg) scale(1);
+            }
+            100% {
+                transform: rotate(5deg) scale(1.1);
+            }
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb);
+            border-radius: 4px;
+        }
+
+        /* 📝 Form groups */
         .form-group {
-            margin-bottom: 17px;
+            margin-bottom: 18px;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            color: #394b63;
+            margin-bottom: 5px;
+            color: #3d2a5c;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             text-align: right;
+            letter-spacing: 0.3px;
         }
+
+        .form-group label .label-emoji {
+            margin-left: 6px;
+            font-size: 18px;
+        }
+
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 10px 12px;
-            border-radius: 6px;
-            border: 1.5px solid #e3e9f5;
-            background: #f9fbfd;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #ede7f6;
+            background: #faf8ff;
             font-size: 15.5px;
-            transition: border 0.2s;
+            transition: all 0.25s ease;
             box-sizing: border-box;
+            font-family: 'Cairo', Arial, sans-serif;
+            color: #2d1b69;
         }
+
         .form-group input:focus,
         .form-group select:focus {
-            border: 1.5px solid #1e78f8;
+            border-color: #a78bfa;
             outline: none;
-            background: #fff;
+            background: #ffffff;
+            box-shadow: 0 0 0 6px rgba(167, 139, 250, 0.15), 0 4px 12px rgba(167, 139, 250, 0.10);
+            transform: scale(1.01);
         }
+
+        .form-group input::placeholder {
+            color: #b8a9d4;
+            font-weight: 400;
+        }
+
+        /* 🧸 Products group */
         .products-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
+
+        .products-group>label {
+            display: block;
+            margin-bottom: 10px;
+            color: #3d2a5c;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: right;
+        }
+
         .product-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 8px 12px 8px 8px;
+            border-radius: 20px;
+            border: 2px dashed #d5c6f0;
+            transition: all 0.2s ease;
         }
+
+        .product-row:hover {
+            border-color: #a78bfa;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
         .product-row input[type="text"] {
             flex: 2 1 60%;
             min-width: 140px;
+            border-radius: 14px;
         }
+
         .product-row input[type="number"] {
             flex: 1 1 30%;
-            min-width: 60px;
+            min-width: 70px;
+            border-radius: 14px;
         }
+
+        .product-row .product-icon {
+            font-size: 22px;
+            line-height: 1;
+            color: #8b6fcb;
+            flex-shrink: 0;
+        }
+
+        /* 🎯 Add product button */
         .add-product-btn {
-            background: linear-gradient(90deg, #1e78f8 60%, #4ec4ec 100%);
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
             color: #fff;
             border: none;
-            padding: 7px 18px;
-            border-radius: 6px;
-            margin-top: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            margin-top: 6px;
             font-size: 15px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Cairo', Arial, sans-serif;
         }
+
         .add-product-btn:hover {
-            background: linear-gradient(90deg, #1671d8 0%, #1e78f8 100%);
-            box-shadow: 0 2px 8px rgba(30, 120, 248, 0.10);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
         }
+
+        .add-product-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* 🚀 Submit button */
         .form-group button[type="submit"] {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            background: linear-gradient(90deg, #33b96a 70%, #7cdba2 100%);
+            background: linear-gradient(135deg, #f472b6, #ec4899, #f59e0b);
+            background-size: 200% 200%;
             color: #fff;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 7px;
+            font-size: 20px;
+            font-weight: 900;
+            border-radius: 40px;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 24px rgba(236, 72, 153, 0.30);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Cairo', Arial, sans-serif;
+            animation: shimmer 4s infinite alternate ease-in-out;
         }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         .form-group button[type="submit"]:hover {
-            background: linear-gradient(90deg, #28a45a 30%, #33b96a 100%);
-            box-shadow: 0 2px 8px rgba(51,185,106,0.10);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(236, 72, 153, 0.40);
         }
+
+        .form-group button[type="submit"]:active {
+            transform: scale(0.97);
+        }
+
+        /* 🔔 Notification */
         .notification {
             display: none;
             position: fixed;
-            top: 20px;
+            top: 30px;
             left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 30px;
-            background-color: #4caf50;
-            color: white;
-            border-radius: 7px;
-            font-size: 16px;
-            z-index: 1000;
+            transform: translateX(-50%) translateY(-20px);
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #34d399, #10b981);
+            color: #fff;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            z-index: 2000;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(51,185,106,0.08);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.30);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Cairo', Arial, sans-serif;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
         }
-        .notification.error {
-            background-color: #f44336;
-        }
+
         .notification.show {
             display: block;
+            transform: translateX(-50%) translateY(0);
         }
+
+        .notification.error {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            box-shadow: 0 12px 40px rgba(239, 68, 68, 0.30);
+        }
+
+        .notification .notif-emoji {
+            margin-left: 10px;
+            font-size: 24px;
+        }
+
+        /* 📱 Responsive */
         @media (max-width: 600px) {
             .container {
-                padding: 13px 4px;
+                padding: 20px 14px 25px;
+                border-radius: 32px;
             }
-            .product-row input[type="text"], .product-row input[type="number"] {
-                min-width: 80px;
+            h1 {
+                font-size: 24px;
             }
+            h1 .emoji-deco {
+                font-size: 26px;
+            }
+            .product-row {
+                padding: 6px 8px;
+                border-radius: 16px;
+            }
+            .product-row input[type="text"],
+            .product-row input[type="number"] {
+                min-width: 70px;
+                padding: 10px 12px;
+            }
+            .form-group button[type="submit"] {
+                font-size: 17px;
+                padding: 14px;
+            }
+            .notification {
+                font-size: 15px;
+                padding: 14px 24px;
+                top: 16px;
+                width: 90%;
+            }
+            body::before,
+            body::after {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 16px 8px 20px;
+                border-radius: 24px;
+            }
+            .product-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+            .product-row input[type="text"],
+            .product-row input[type="number"] {
+                min-width: auto;
+                width: 100%;
+            }
+            .product-row .product-icon {
+                display: none;
+            }
+        }
+
+        /* ✨ Fun little extra: floating sparkles on inputs */
+        .form-group input:focus+label .label-emoji,
+        .form-group select:focus+label .label-emoji {
+            animation: sparkle 0.6s ease;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.4) rotate(20deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1edf9;
+            border-radius: 12px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+            border-radius: 12px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d28d9;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>إضافة طلب جديد</h1>
+        <h1>
+            <span class="emoji-deco">🧸</span>
+            إضافة طلب جديد
+            <span class="emoji-deco">✨</span>
+        </h1>
+
         <form id="addRequestForm" autocomplete="off">
+
+            <!-- رقم الشحنة -->
             <div class="form-group">
-                <label for="orderNumber">رقم الشحنة</label>
-                <input type="text" id="orderNumber" name="orderNumber" required autocomplete="off">
+                <label for="orderNumber">
+                    <span class="label-emoji">📦</span> رقم الشحنة
+                </label>
+                <input type="text" id="orderNumber" name="orderNumber" placeholder="مثلاً: ORD-12345" required autocomplete="off">
             </div>
+
+            <!-- يوزر الزبون -->
             <div class="form-group">
-                <label for="customerUsername">يوزر الزبون</label>
-                <input type="text" id="customerUsername" name="customerUsername" required autocomplete="off">
+                <label for="customerUsername">
+                    <span class="label-emoji">👤</span> يوزر الزبون
+                </label>
+                <input type="text" id="customerUsername" name="customerUsername" placeholder="@username" required autocomplete="off">
             </div>
+
+            <!-- رابط العربة -->
             <div class="form-group">
-                <label for="cartLink">رابط العربة</label>
-                <input type="text" id="cartLink" name="cartLink" required autocomplete="off">
+                <label for="cartLink">
+                    <span class="label-emoji">🛒</span> رابط العربة
+                </label>
+                <input type="text" id="cartLink" name="cartLink" placeholder="https://..." required autocomplete="off">
             </div>
+
+            <!-- المحافظة -->
             <div class="form-group">
-                <label for="province">المحافظة</label>
+                <label for="province">
+                    <span class="label-emoji">🗺️</span> المحافظة
+                </label>
                 <select id="province" name="province" required>
-                    <option value="Baghdad">بغداد</option>
-                    <option value="Basra">البصرة</option>
-                    <option value="Nineveh">نينوى</option>
-                    <option value="Karbala">كربلاء</option>
-                    <option value="Najaf">النجف</option>
-                    <option value="Dhi Qar">ذي قار</option>
-                    <option value="Erbil">أربيل</option>
-                    <option value="Sulaymaniyah">السليمانية</option>
-                    <option value="Dohuk">دهوك</option>
-                    <option value="Salah ad-Din">صلاح الدين</option>
-                    <option value="Anbar">الأنبار</option>
-                    <option value="Al-Muthanna">المثنى</option>
-                    <option value="Qadisiyyah">القادسية</option>
-                    <option value="Babil">بابيل</option>
-                    <option value="Wasit">واسط</option>
-                    <option value="Maysan">ميسان</option>
-                    <option value="Kirkuk">كركوك</option>
-                    <option value="Diyala">ديالى</option>
+                    <option value="Baghdad">🇮🇶 بغداد</option>
+                    <option value="Basra">🌊 البصرة</option>
+                    <option value="Nineveh">🏛️ نينوى</option>
+                    <option value="Karbala">🕌 كربلاء</option>
+                    <option value="Najaf">⭐ النجف</option>
+                    <option value="Dhi Qar">🌾 ذي قار</option>
+                    <option value="Erbil">🏔️ أربيل</option>
+                    <option value="Sulaymaniyah">🌳 السليمانية</option>
+                    <option value="Dohuk">🌄 دهوك</option>
+                    <option value="Salah ad-Din">⚔️ صلاح الدين</option>
+                    <option value="Anbar">🏜️ الأنبار</option>
+                    <option value="Al-Muthanna">🌙 المثنى</option>
+                    <option value="Qadisiyyah">📜 القادسية</option>
+                    <option value="Babil">🏺 بابيل</option>
+                    <option value="Wasit">🌿 واسط</option>
+                    <option value="Maysan">🌴 ميسان</option>
+                    <option value="Kirkuk">🛢️ كركوك</option>
+                    <option value="Diyala">🌅 ديالى</option>
                 </select>
             </div>
+
+            <!-- العنوان -->
             <div class="form-group">
-                <label for="address">العنوان</label>
-                <input type="text" id="address" name="address" required autocomplete="off">
+                <label for="address">
+                    <span class="label-emoji">📍</span> العنوان
+                </label>
+                <input type="text" id="address" name="address" placeholder="الشارع، الحي، رقم البناية" required autocomplete="off">
             </div>
+
+            <!-- رقم الهاتف الأول -->
             <div class="form-group">
-                <label for="phone1">رقم الهاتف الأول</label>
-                <input type="tel" id="phone1" name="phone1" required autocomplete="off">
+                <label for="phone1">
+                    <span class="label-emoji">📱</span> رقم الهاتف الأول
+                </label>
+                <input type="tel" id="phone1" name="phone1" placeholder="07XXXXXXXX" required autocomplete="off">
             </div>
+
+            <!-- رقم الهاتف الثاني -->
             <div class="form-group">
-                <label for="phone2">رقم الهاتف الثاني</label>
-                <input type="tel" id="phone2" name="phone2" autocomplete="off">
+                <label for="phone2">
+                    <span class="label-emoji">📞</span> رقم الهاتف الثاني
+                </label>
+                <input type="tel" id="phone2" name="phone2" placeholder="(اختياري)" autocomplete="off">
             </div>
+
+            <!-- السعر الكلي -->
             <div class="form-group">
-                <label for="totalPrice">السعر الكلي</label>
-                <input type="number" id="totalPrice" name="totalPrice" required>
+                <label for="totalPrice">
+                    <span class="label-emoji">💰</span> السعر الكلي
+                </label>
+                <input type="number" id="totalPrice" name="totalPrice" placeholder="0" required>
             </div>
+
+            <!-- المنتجات المكررة -->
             <div class="form-group products-group" id="productsGroup">
-                <label>المنتجات المكررة</label>
+                <label>
+                    <span class="label-emoji">🎁</span> المنتجات المكررة
+                </label>
                 <div class="product-row">
+                    <span class="product-icon">🔗</span>
                     <input type="text" class="product-link" name="productLink[]" placeholder="رابط المنتج" autocomplete="off">
                     <input type="number" class="product-count" name="productCount[]" placeholder="العدد">
                 </div>
             </div>
-            <div class="form-group">
-                <button type="submit">إضافة الطلب</button>
+
+            <!-- زر إضافة المنتج -->
+            <div class="form-group" style="margin-bottom:12px;">
+                <button type="button" class="add-product-btn" id="addProductBtn">
+                    ➕ أضف منتج آخر
+                </button>
             </div>
+
+            <!-- زر الإرسال -->
+            <div class="form-group">
+                <button type="submit">
+                    🚀 إضافة الطلب
+                </button>
+            </div>
+
         </form>
-        <div id="notification" class="notification"></div>
     </div>
 
+    <!-- الإشعار -->
+    <div id="notification" class="notification"></div>
+
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-      import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyBI6VNgwCKdG2X52wC2b20t7or8p4rjFB8",
-        authDomain: "vndr11.firebaseapp.com",
-        projectId: "vndr11",
-        storageBucket: "vndr11.appspot.com",
-        messagingSenderId: "411092840558",
-        appId: "1:411092840558:web:5d38f8a50d5eaada2a767f",
-        measurementId: "G-77M15Z0H07"
-      };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBI6VNgwCKdG2X52wC2b20t7or8p4rjFB8",
+            authDomain: "vndr11.firebaseapp.com",
+            projectId: "vndr11",
+            storageBucket: "vndr11.appspot.com",
+            messagingSenderId: "411092840558",
+            appId: "1:411092840558:web:5d38f8a50d5eaada2a767f",
+            measurementId: "G-77M15Z0H07"
+        };
 
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-      // Dynamic product fields logic
-      const productsGroup = document.getElementById('productsGroup');
+        // --- Dynamic product fields logic ---
+        const productsGroup = document.getElementById('productsGroup');
 
-      function addProductRowIfNeeded() {
-        const rows = Array.from(productsGroup.querySelectorAll('.product-row'));
-        const lastRow = rows[rows.length - 1];
-        const linkInput = lastRow.querySelector('.product-link');
-        const countInput = lastRow.querySelector('.product-count');
-
-        // Detect if last row is filled
-        if (linkInput.value.trim() !== '' && countInput.value.trim() !== '') {
-          // Only add new row if the last one is filled and no empty row after
-          // (prevents spamming new rows)
-          if (!productsGroup.querySelector('.product-row.new-row')) {
+        function addProductRow() {
             const newRow = document.createElement('div');
-            newRow.className = 'product-row new-row';
+            newRow.className = 'product-row';
             newRow.innerHTML = `
-              <input type="text" class="product-link" name="productLink[]" placeholder="رابط المنتج" autocomplete="off">
-              <input type="number" class="product-count" name="productCount[]" placeholder="العدد">
+                <span class="product-icon">🔗</span>
+                <input type="text" class="product-link" name="productLink[]" placeholder="رابط المنتج" autocomplete="off">
+                <input type="number" class="product-count" name="productCount[]" placeholder="العدد">
             `;
             productsGroup.appendChild(newRow);
 
-            // Remove the "new-row" class after creation, to track only the latest new row
-            setTimeout(() => newRow.classList.remove('new-row'), 200);
-            
-            // Add event listeners to new inputs
+            // Auto-focus the new link input
+            const linkInput = newRow.querySelector('.product-link');
+            if (linkInput) linkInput.focus();
+
+            // Attach input listeners to the new row's inputs for auto-add
             newRow.querySelectorAll('input').forEach(input => {
-              input.addEventListener('input', addProductRowIfNeeded);
+                input.addEventListener('input', addProductRowIfNeeded);
             });
-          }
-        }
-      }
-
-      // Initial event listeners
-      productsGroup.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', addProductRowIfNeeded);
-      });
-
-      document.getElementById('addRequestForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const form = event.target;
-        const orderNumber = form.orderNumber.value;
-        const customerUsername = form.customerUsername.value;
-        const cartLink = form.cartLink.value;
-        const province = form.province.value;
-        const address = form.address.value;
-        const phone1 = form.phone1.value;
-        const phone2 = form.phone2.value;
-        const totalPrice = form.totalPrice.value;
-
-        // Collect product links/counts, filter out empty
-        const productLinks = Array.from(form.querySelectorAll('.product-link')).map(i => i.value.trim());
-        const productCounts = Array.from(form.querySelectorAll('.product-count')).map(i => i.value.trim());
-
-        const products = [];
-        for (let i = 0; i < productLinks.length; i++) {
-          if (productLinks[i] && productCounts[i]) {
-            products.push({ link: productLinks[i], count: Number(productCounts[i]) });
-          }
         }
 
-        // Prepare data for Firestore
-        const orderData = {
-          orderNumber,
-          customerUsername,
-          cartLink,
-          province,
-          address,
-          phone1,
-          phone2,
-          totalPrice,
-        };
-        // Save up to 7 products (or more if you want)
-        products.forEach((p, i) => {
-          orderData[`productLink${i+1}`] = p.link;
-          orderData[`productCount${i+1}`] = p.count;
+        function addProductRowIfNeeded() {
+            const rows = Array.from(productsGroup.querySelectorAll('.product-row'));
+            const lastRow = rows[rows.length - 1];
+            if (!lastRow) return;
+
+            const linkInput = lastRow.querySelector('.product-link');
+            const countInput = lastRow.querySelector('.product-count');
+            if (!linkInput || !countInput) return;
+
+            const linkVal = linkInput.value.trim();
+            const countVal = countInput.value.trim();
+
+            // If last row is filled, add a new empty row (if not already present)
+            if (linkVal !== '' && countVal !== '') {
+                // Check if there's already an empty row at the end
+                const lastRowEmpty = rows.some(row => {
+                    const l = row.querySelector('.product-link');
+                    const c = row.querySelector('.product-count');
+                    return l && c && l.value.trim() === '' && c.value.trim() === '';
+                });
+
+                if (!lastRowEmpty) {
+                    addProductRow();
+                }
+            }
+        }
+
+        // --- Attach initial listeners ---
+        productsGroup.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', addProductRowIfNeeded);
         });
 
-        try {
-          await addDoc(collection(db, "orders"), orderData);
+        // --- Manual "Add Product" button ---
+        document.getElementById('addProductBtn').addEventListener('click', () => {
+            addProductRow();
+        });
 
-          // Show success notification
-          const notification = document.getElementById('notification');
-          notification.textContent = 'تم إضافة الطلب بنجاح';
-          notification.classList.add('show');
-          notification.classList.remove('error');
+        // --- Form submission ---
+        document.getElementById('addRequestForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
 
-          // Hide notification after 2.5 seconds and reload the page
-          setTimeout(() => {
-            notification.classList.remove('show');
-            window.location.href = 'manage-orders.html';
-          }, 2500);
-        } catch (error) {
-          // Show error notification
-          const notification = document.getElementById('notification');
-          notification.textContent = 'حدث خطأ أثناء إضافة الطلب';
-          notification.classList.add('error', 'show');
-          setTimeout(() => {
-            notification.classList.remove('show');
-          }, 3000);
-        }
-      });
+            const form = event.target;
+            const orderNumber = form.orderNumber.value;
+            const customerUsername = form.customerUsername.value;
+            const cartLink = form.cartLink.value;
+            const province = form.province.value;
+            const address = form.address.value;
+            const phone1 = form.phone1.value;
+            const phone2 = form.phone2.value;
+            const totalPrice = form.totalPrice.value;
+
+            // Collect product links/counts
+            const productLinks = Array.from(form.querySelectorAll('.product-link')).map(i => i.value.trim());
+            const productCounts = Array.from(form.querySelectorAll('.product-count')).map(i => i.value.trim());
+
+            const products = [];
+            for (let i = 0; i < productLinks.length; i++) {
+                if (productLinks[i] && productCounts[i]) {
+                    products.push({ link: productLinks[i], count: Number(productCounts[i]) });
+                }
+            }
+
+            const orderData = {
+                orderNumber,
+                customerUsername,
+                cartLink,
+                province,
+                address,
+                phone1,
+                phone2,
+                totalPrice,
+            };
+
+            products.forEach((p, i) => {
+                orderData[`productLink${i + 1}`] = p.link;
+                orderData[`productCount${i + 1}`] = p.count;
+            });
+
+            const notification = document.getElementById('notification');
+
+            try {
+                await addDoc(collection(db, "orders"), orderData);
+
+                notification.innerHTML = `✅ تم إضافة الطلب بنجاح <span class="notif-emoji">🎉</span>`;
+                notification.classList.add('show');
+                notification.classList.remove('error');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    window.location.href = 'manage-orders.html';
+                }, 2500);
+
+            } catch (error) {
+                notification.innerHTML = `❌ حدث خطأ أثناء إضافة الطلب <span class="notif-emoji">😅</span>`;
+                notification.classList.add('error', 'show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        });
     </script>
+
 </body>
 </html>
